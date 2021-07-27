@@ -29,8 +29,6 @@ app.use('/api/like', require('./routes/api/like'));
 app.use('/api/subscribe', require('./routes/api/subscribe'));
 app.use('/api/save', require('./routes/api/save'));
 
-app.use('/api/admin', require('./routes/api/admin'));
-
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
 });
