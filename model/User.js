@@ -31,14 +31,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         min: 6,
     },
-    Recipes: [{
+    // Recipes: [{
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'Recipe'
+    // }],
+    Roles: {
         type: mongoose.Types.ObjectId,
-        ref: 'Recipe'
-    }],
-    Role: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Role'
-    }
-});
+        ref: 'Role',
+        default: mongoose.Types.ObjectId('60f93d29fe0913d29da9c227')
+    },
+}); 
 
 module.exports = mongoose.model('User', userSchema);

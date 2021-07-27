@@ -4,12 +4,16 @@ const ingredientSchema = new mongoose.Schema({
     ingredient: {
         type: String,
         required: true,
-        min: 6,
+        min: 3,
         max: 225
     },
-    recipeId: {
+    recipe: {
         type: mongoose.Types.ObjectId,
         ref: 'Recipe'
+    },
+    chef: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
     }
 });
 

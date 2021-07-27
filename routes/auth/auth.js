@@ -1,4 +1,4 @@
-const router = requrie('express').Router();
+const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../model/User');
@@ -8,11 +8,11 @@ const { registerValidation, loginValidation } = require('../../validation');
 router.post('/register', async (req, res) => {
     // input validation 
     const { error } = registerValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).send(error.details[0].message);
 
     // check if email already exists
-    const emailExist = await User.findOne({email: req.body.email});
-    if(emailExist) return res.status(400).send('Email already exist');
+    const emailExist = await User.findOne({ email: req.body.email });
+    if (emailExist) return res.status(400).send('Email already exist');
 
     // encrypt password
     const salt = await bcrypt.genSalt(10);
@@ -25,30 +25,30 @@ router.post('/register', async (req, res) => {
         password: hashedPassword
     });
 
-    try{
+    try {
         const savedUser = await user.save();
         res.send(savedUser);
-    }catch(err){
+    } catch (err) {
         res.status(400).send(err);
     }
-    
+
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     // input validation
     const { error } = loginValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).send(error.details[0].message);
 
     // check if user exists
     const user = await User.findOne({ email: req.body.email });
-    if(!user) return res.status(400).send('Email or Password is Wrong');
+    if (!user) return res.status(400).send('Email or Password is Wrong');
 
     // password validation
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if(!validPassword) return res.status(400).send('Email or Password is Wrong');
+    if (!validPassword) return res.status(400).send('Email or Password is Wrong');
 
     // jwt token
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    const token = jwt.sign({ _id: user._id, Roles: user.Roles }, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send(token);
 
 });
