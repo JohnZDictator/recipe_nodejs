@@ -21,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 
+// mongodb + srv://recipeAdmin:00001111@cluster0.hvu6j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 const conn = mongoose.createConnection(
     process.env.DB_CONNECT, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
     () => console.log('db connect')
