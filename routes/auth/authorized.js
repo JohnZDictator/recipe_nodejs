@@ -6,7 +6,7 @@ const isAdmin = (req, res, next) => {
     if (valid) {
         next();
     } else {
-        res.status(200).send('Access Denied Since You are not an Admin');
+        res.status(403).send('Access Denied Since You are not an Admin');
     }
 }
 
@@ -16,7 +16,7 @@ const isChef = (req, res, next) => {
     if (valid) {
         next();
     } else {
-        res.status(400).send('Access Denied Since You are not a Chef');
+        res.status(403).send('Access Denied Since You are not a Chef');
     }
 }
 
@@ -26,7 +26,7 @@ const isUser = (req, res, next) => {
     if (valid) {
         next();
     } else {
-        res.status(400).send('Access Denied Since You are not a User');
+        res.status(403).send('Access Denied Since You are not a User');
     }
 }
 

@@ -3,9 +3,12 @@ const User = require('../model/User');
 const { recipeValidation } = require('../validation');
 
 const getRecipes = async (req, res, next) => {
-    const recipes = await Recipe.find();
+    console.log('Flutter request reached here');
+
+    const recipes = await Recipe.find({});
     if (!recipes) return res.status(400).send('No Recipes Found');
 
+    console.log('Flutter request reached here');
     return res.status(200).json(recipes);
 }
 
@@ -76,7 +79,7 @@ const updateRecipe = async (req, res, next) => {
                 }
             }
         );
-        return res.status(200).json(updateRecipe);
+        return res.status(204).json(updateRecipe);
     } catch (updateErr) {
         return res.status(400).send(updateErr);
     }
@@ -96,7 +99,7 @@ const deleteRecipe = async (req, res, next) => {
 
     try {
         const recipeRemoved = await Recipe.deleteOne({ _id: req.params.id });
-        return res.status(200).json(recipeRemoved);
+        return res.status(204).json(recipeRemoved);
     } catch (err) {
         return res.status(400).send(err);
     }
