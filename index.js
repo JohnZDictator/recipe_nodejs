@@ -23,15 +23,10 @@ app.use(methodOverride('_method'));
 
 // mongodb + srv://recipeAdmin:00001111@cluster0.hvu6j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
-var conn;
-
-const connDB = async () => {
-    conn = await mongoose.createConnection(
-        process.env.DB_CONNECT, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
-        () => console.log('db connect')
-    );
-
-}
+const conn = mongoose.createConnection(
+    process.env.DB_CONNECT, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
+    () => console.log('db connect')
+);
 
 let gfs;
 
@@ -116,8 +111,6 @@ app.use('/api/like', require('./routes/api/like'));
 app.use('/api/subscribe', require('./routes/api/subscribe'));
 app.use('/api/save', require('./routes/api/save'));
 
-connDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`App listening on port ${PORT}`);
-    });
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
 });
